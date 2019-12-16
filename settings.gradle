@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name='Beerlab_mobile'
+rootProject.name='App'
