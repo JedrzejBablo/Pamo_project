@@ -3,6 +3,20 @@ package beerlab.app;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 import beerlab.app.model.User;
 import beerlab.app.service.UserService;
@@ -15,11 +29,17 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static beerlab.app.LoginActivity.token;
 
 public class DashboardActivity extends AppCompatActivity {
+    private RecyclerView mRecyclerView;
+    private ExampleAdapter mExampleAdapter;
+    private ArrayList<ExampleItem> mExampleList;
+    private RequestQueue mRequestQueue;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dashboard_activity);
+        setContentView(R.layout.menu_activity);
+
         final Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.31:8081/")
+                .baseUrl("http://192.168.1.31:8081")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -28,9 +48,10 @@ public class DashboardActivity extends AppCompatActivity {
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
+                System.out.println("RESPONSE" + response);
+                System.out.println(token);
                 //User user = response.body();
-               // System.out.println(user.toString());
-                System.out.println(response.body());
+                //System.out.println(user.toString());
             }
 
             @Override
@@ -38,6 +59,53 @@ public class DashboardActivity extends AppCompatActivity {
                 System.out.println(t);
             }
         });
+        mRecyclerView = findViewById(R.id.recycler_view);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        mExampleList = new ArrayList<>();
+
+        mRequestQueue = Volley.newRequestQueue(this);
+        parseJSON();
     }
 
+
+    private void parseJSON() {
+        String url = "http://192.168.1.31:8081/api/beer";
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+                Request.Method.GET,
+                url,
+                null,
+                new com.android.volley.Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+
+                        try {
+                            for (int i = 0; i < response.length(); i++) {
+                                JSONObject hit = response.getJSONObject(i);
+
+                                String beerName = hit.getString("brand");
+                                String imageUrl = hit.getString("imgUrl");
+                                String description = hit.getString("description");
+                                Long price = hit.getLong("price");
+
+                                mExampleList.add(new ExampleItem(imageUrl, beerName, description, price));
+
+                            }
+
+                            mExampleAdapter = new ExampleAdapter(DashboardActivity.this, mExampleList);
+                            mRecyclerView.setAdapter(mExampleAdapter);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+        mRequestQueue.add(jsonArrayRequest);
+    }
 }
