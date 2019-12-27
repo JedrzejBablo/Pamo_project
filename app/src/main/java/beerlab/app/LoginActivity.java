@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import org.w3c.dom.Text;
 
+import beerlab.app.model.User;
 import beerlab.app.service.AuthService;
 import beerlab.app.service.LoginPayload;
 import beerlab.app.service.UserService;
@@ -26,8 +27,7 @@ public class LoginActivity extends AppCompatActivity {
     Button login;
     LoginPayload loginPayload = new LoginPayload();
     TextView emailField, passwordField;
-    public static String token = "";
-
+    public static String token ="";
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
@@ -38,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
 
         final SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor = sharedPref.edit();
+
 
         final Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://192.168.1.31:8081/")

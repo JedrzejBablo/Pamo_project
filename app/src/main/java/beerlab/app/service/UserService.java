@@ -7,5 +7,5 @@ import retrofit2.http.Header;
 
 public interface UserService {
     @GET("/api/user/me")
-    Call<User> checkMe(@Header("X-Auth_Token") String authorization);
+    Call<User> checkMe(@Header("X-Auth-Token") String authorization);
 }
