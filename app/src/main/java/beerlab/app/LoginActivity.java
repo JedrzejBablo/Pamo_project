@@ -10,12 +10,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.w3c.dom.Text;
-
-import beerlab.app.model.User;
 import beerlab.app.service.AuthService;
 import beerlab.app.service.LoginPayload;
-import beerlab.app.service.UserService;
 import beerlab.app.utils.TextValidator;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,14 +22,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class LoginActivity extends AppCompatActivity {
     Button login;
     LoginPayload loginPayload = new LoginPayload();
-    TextView emailField, passwordField;
+    TextView emailField, passwordField, register;
     public static String token ="";
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
-        login = findViewById(R.id.login_button);
-        emailField = findViewById(R.id.login_email_edit);
-        passwordField = findViewById(R.id.login_password_edit);
+        login = findViewById(R.id.button_login);
+        emailField = findViewById(R.id.editText_login_email);
+        passwordField = findViewById(R.id.editText_login_password);
+        register = findViewById(R.id.textView_registerHere);
         final Intent intent = new Intent(this, DashboardActivity.class);
 
         final SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
@@ -70,6 +67,13 @@ public class LoginActivity extends AppCompatActivity {
                 });
             }
         });
+
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                launchRegisterActivity();
+            }
+        });
     }
 
     private void validateEmail() {
@@ -102,9 +106,8 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void validate() {
-        if (passwordField.getText().toString().isEmpty() && emailField.getText().toString().isEmpty()) {
-            login.setEnabled(true);
-        }
+    private void launchRegisterActivity() {
+        Intent intent = new Intent(this, RegisterActivity.class);
+        startActivity(intent);
     }
 }

@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import beerlab.app.service.AuthService;
 import beerlab.app.service.RegisterPayload;
-import beerlab.app.service.UserService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -28,11 +27,11 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_activity);
 
-        registerButton = findViewById(R.id.register_button);
+        registerButton = findViewById(R.id.button_register);
 
-        registerLogin = findViewById(R.id.register_login);
-        registerPassword = findViewById(R.id.register_password);
-        registerEmail = findViewById(R.id.register_email);
+        registerLogin = findViewById(R.id.editText_register_nickname);
+        registerPassword = findViewById(R.id.editText_register_password);
+        registerEmail = findViewById(R.id.editText_register_email);
         radioGroup_age = (RadioGroup) findViewById(R.id.radioGroup_age);
         radioGroup_gender = (RadioGroup) findViewById(R.id.radioGroup_gender);
 

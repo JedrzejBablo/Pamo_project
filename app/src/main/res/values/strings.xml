@@ -1,12 +1,22 @@
 <resources>
-    <string name="app_name">App</string>
-    <string name="sign_in">Zaloguj się</string>
-    <string name="sign_up">Rejestracja</string>
+    <string name="app_name">Beerlab</string>
     <string name="email">Email</string>
-    <string name="password">Hasło</string>
+    <string name="password">Password</string>
+    <string name="nickname">Nickname</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="register_button">Create account</string>
+    <string name="logo">logo</string>
+    <string name="beerlab">BEERLAB</string>
+    <string name="register_here">Register here</string>
+    <string name="register">Registration</string>
     <string name="login">Login</string>
-    <string name="age">Wiek</string>
-    <string name="men">Mężczyzna</string>
-    <string name="women">Kobieta</string>
-    <string name="register_button">Utwórz konto</string>
+    <string name="age_question">Are you over 18 years old?</string>
+    <string name="gender">Gender:</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <string name="image_menu">image menu</string>
+    <string name="beer_name">Beer Name:</string>
+    <string name="description">Description:</string>
+    <string name="price">Price:</string>
 </resources>

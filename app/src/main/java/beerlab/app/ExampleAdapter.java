@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.PicassoProvider;
 
 import java.util.ArrayList;
 
@@ -40,7 +39,7 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleV
         Long price = currentItem.getmPrice();
 
         holder.mTextViewBeer.setText(beerName);
-        holder.mTextViewDescription.setText(description);
+        holder.mTextViewDescription.setText("Description: " + description);
         holder.mTextViewPrice.setText("Price: " + price);
         Picasso.get().load(imageUrl).fit().centerInside().into(holder.mImageView);
     }
@@ -58,10 +57,10 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleV
 
         public ExampleViewHolder(@NonNull View itemView) {
             super(itemView);
-            mImageView = itemView.findViewById(R.id.image_view);
-            mTextViewBeer = itemView.findViewById(R.id.text_view_beer);
-            mTextViewDescription = itemView.findViewById(R.id.text_view_description);
-            mTextViewPrice = itemView.findViewById(R.id.text_view_price);
+            mImageView = itemView.findViewById(R.id.imageView_menu);
+            mTextViewBeer = itemView.findViewById(R.id.textView_beerName);
+            mTextViewDescription = itemView.findViewById(R.id.textView_description);
+            mTextViewPrice = itemView.findViewById(R.id.textView_price);
         }
     }
 }
