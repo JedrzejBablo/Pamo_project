@@ -1,22 +1,29 @@
 <resources>
     <string name="app_name">Beerlab</string>
-    <string name="email">Email</string>
+    <string name="login_button_text">Login</string>
+    <string name="Email">Email</string>
     <string name="password">Password</string>
-    <string name="nickname">Nickname</string>
-    <string name="male">Male</string>
-    <string name="female">Female</string>
-    <string name="register_button">Create account</string>
-    <string name="logo">logo</string>
     <string name="beerlab">BEERLAB</string>
+    <string name="logo">logo</string>
     <string name="register_here">Register here</string>
-    <string name="register">Registration</string>
-    <string name="login">Login</string>
-    <string name="age_question">Are you over 18 years old?</string>
-    <string name="gender">Gender:</string>
-    <string name="no">No</string>
-    <string name="yes">Yes</string>
     <string name="image_menu">image menu</string>
     <string name="beer_name">Beer Name:</string>
     <string name="description">Description:</string>
     <string name="price">Price:</string>
+    <string name="nickname">Nickname</string>
+    <string name="age_question">Are you over 18 years old?</string>
+    <string name="gender">Gender:</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="register">Registration</string>
+    <string name="register_button">Create account</string>
+
+    <string name="menu">Menu</string>
+    <string name="cart">Cart</string>
+    <string name="profile">Profile</string>
+    <string name="currency">Currency</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>
