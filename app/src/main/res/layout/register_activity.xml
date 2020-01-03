@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient">
 
@@ -81,45 +81,6 @@
             app:layout_constraintVertical_bias="0.350" />
 
         <TextView
-            android:id="@+id/textView_age_question"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/age_question"
-            android:textSize="17sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.548"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.461" />
-
-        <RadioGroup
-            android:id="@+id/radioGroup_age"
-            android:layout_width="208dp"
-            android:layout_height="35dp"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.561"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.517">
-
-            <RadioButton
-                android:id="@+id/radioButton_age_no"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:text="@string/no" />
-
-            <RadioButton
-                android:id="@+id/radioButton_age_yes"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:text="@string/yes" />
-        </RadioGroup>
-
-        <TextView
             android:id="@+id/textView_gender"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -131,7 +92,7 @@
             app:layout_constraintHorizontal_bias="0.324"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.59" />
+            app:layout_constraintVertical_bias="0.52" />
 
         <RadioGroup
             android:id="@+id/radioGroup_gender"
@@ -139,10 +100,9 @@
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.522"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.686">
+            app:layout_constraintVertical_bias="0.611">
 
             <RadioButton
                 android:id="@+id/register_gender_male"
@@ -171,6 +131,30 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.904" />
+
+        <TextView
+            android:id="@+id/errorText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="47dp"
+            android:layout_marginBottom="28dp"
+            android:textColor="@color/colorError"
+            app:layout_constraintBottom_toTopOf="@+id/register_button_id"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/radioGroup_gender" />
+
+        <CheckBox
+            android:id="@+id/ageCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="114dp"
+            android:layout_marginTop="38dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/age_statement"
+            app:layout_constraintBottom_toTopOf="@+id/textView_gender"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editText_register_password" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>
