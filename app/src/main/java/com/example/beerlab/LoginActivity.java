@@ -14,6 +14,9 @@ import com.example.beerlab.service.AuthService;
 import com.example.beerlab.service.LoginPayload;
 import com.example.beerlab.utils.TextValidator;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -23,7 +26,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class LoginActivity extends AppCompatActivity {
     Button login;
     LoginPayload loginPayload = new LoginPayload();
-    TextView emailField, passwordField, register;
+    TextView emailField, passwordField, register, errorField;
     public static String token ="";
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
         final Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.31:8081/")
+                .baseUrl("http://10.0.2.2:8081/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         login.setEnabled(false);
@@ -56,9 +59,14 @@ public class LoginActivity extends AppCompatActivity {
                 call.enqueue(new Callback<LoginPayload>() {
                     @Override
                     public void onResponse(Call<LoginPayload> call, Response<LoginPayload> response) {
-                        System.out.println(response.headers().get("X-Auth-Token"));
-                        token = response.headers().get("X-Auth-Token");
-                        startActivity(intent);
+                        if (response.isSuccessful()) {
+                            System.out.println(response.headers().get("X-Auth-Token"));
+                            token = response.headers().get("X-Auth-Token");
+                            startActivity(intent);
+                        } else {
+                            errorField = findViewById(R.id.errorText);
+                            errorField.setText(R.string.invalid_login);
+                        }
                     }
 
                     @Override
@@ -84,10 +92,15 @@ public class LoginActivity extends AppCompatActivity {
             public void validate(TextView textView, String text) {
                 String emailValue = emailField.getText().toString();
                 if (emailValue.isEmpty()) {
-                    emailField.setError("To pole nie może być puste");
+                    emailField.setError("Email is required");
                     login.setEnabled(false);
                 } else {
-                    login.setEnabled(true);
+                    String regex = "[^@]+@[^.]+\\..+";
+                    Pattern pattern = Pattern.compile(regex);
+
+                    Matcher matcher = pattern.matcher(text);
+                    if (matcher.matches()) login.setEnabled(true);
+                    else emailField.setError("Invalid email format");
                 }
             }
         });
@@ -99,7 +112,7 @@ public class LoginActivity extends AppCompatActivity {
             public void validate(TextView textView, String text) {
                 String emailValue = passwordField.getText().toString();
                 if (emailValue.isEmpty()) {
-                    passwordField.setError("To pole nie może być puste");
+                    passwordField.setError("Password is required");
                     login.setEnabled(false);
                 } else {
                     login.setEnabled(true);

@@ -57,7 +57,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.668" />
+        app:layout_constraintVertical_bias="0.606" />
 
     <EditText
         android:id="@+id/login_actv_password_id"
@@ -77,7 +77,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.758" />
+        app:layout_constraintVertical_bias="0.684" />
 
     <Button
         android:id="@+id/button_login_id"
@@ -104,12 +104,27 @@
         android:layout_below="@id/button_login_id"
         android:layout_centerHorizontal="true"
         android:text="@string/register_here"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/colorDarkBlue"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.956" />
+
+    <TextView
+        android:id="@+id/errorText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="36dp"
+        android:textAlignment="center"
+        android:textColor="@color/colorError"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/button_login_id"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login_actv_password_id"
+        app:layout_constraintVertical_bias="0.45" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
