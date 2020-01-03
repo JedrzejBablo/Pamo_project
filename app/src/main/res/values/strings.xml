@@ -11,7 +11,7 @@
     <string name="description">Description:</string>
     <string name="price">Price:</string>
     <string name="nickname">Nickname</string>
-    <string name="age_question">Are you over 18 years old?</string>
+    <string name="age_statement">I\'m over 18 years old</string>
     <string name="gender">Gender:</string>
     <string name="no">No</string>
     <string name="yes">Yes</string>
@@ -27,4 +27,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="invalid_login">Invalid login credentials</string>
+    <string name="user_exists">User already exists!</string>
+    <string name="user_age">You must be over 18 yeard old to register</string>
+    <string name="user_gender">You must choose your gender</string>
 </resources>

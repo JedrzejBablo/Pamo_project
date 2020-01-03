@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -11,6 +12,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.beerlab.service.AuthService;
 import com.example.beerlab.service.RegisterPayload;
+import com.example.beerlab.utils.TextValidator;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -19,79 +25,70 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RegisterActivity extends AppCompatActivity {
     public RegisterPayload registerPayload = new RegisterPayload();
-    private Button registerButton;
-    private RadioGroup radioGroup_age, radioGroup_gender;
-    private TextView registerLogin, registerEmail, registerPassword;
+    private RadioGroup radioGroup_gender;
+    private TextView registerLogin, registerEmail, registerPassword, errorText;
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_activity);
 
-        registerButton = findViewById(R.id.register_button_id);
+        Button registerButton = findViewById(R.id.register_button_id);
 
         registerLogin = findViewById(R.id.editText_register_nickname);
         registerPassword = findViewById(R.id.editText_register_password);
         registerEmail = findViewById(R.id.editText_register_email);
-        radioGroup_age = (RadioGroup) findViewById(R.id.radioGroup_age);
-        radioGroup_gender = (RadioGroup) findViewById(R.id.radioGroup_gender);
+        registerEmail.addTextChangedListener(new TextValidator(registerEmail) {
+            @Override
+            public void validate(TextView textView, String text) {
+                String regex = "[^@]+@[^.]+\\..+";
+                Pattern pattern = Pattern.compile(regex);
+
+                Matcher matcher = pattern.matcher(text);
+                if (!matcher.matches()) registerEmail.setError("Invalid email format");
+        }
+        });
+        radioGroup_gender = findViewById(R.id.radioGroup_gender);
 
         final Intent intent = new Intent(this, LoginActivity.class);
 
 
         final Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.31:8081/")
+                .baseUrl("http://10.0.2.2:8081/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        registerButton.setEnabled(true);
-        radioGroup_gender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                View radioButton = radioGroup_gender.findViewById(checkedId);
-                int index = radioGroup_gender.indexOfChild(radioButton);
-                switch (index) {
-                    case 0:
-                        registerPayload.gender = "Mezczyzna";
-                        break;
-                    case 1:
-                        registerPayload.gender = "Kobieta";
-                        break;
-                }
-            }
-        });
-
-        radioGroup_age.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                View radioButton = radioGroup_age.findViewById(checkedId);
-                int index = radioGroup_age.indexOfChild(radioButton);
-                switch (index) {
-                    case 1:
-                        registerPayload.dateOfBirth = "2000-01-01";
-                        //  registerButton.setEnabled(true);
-                        break;
-                    case 0:
-                        registerPayload.dateOfBirth = "2018-01-01";
-                        // registerButton.setEnabled(false);
-                        break;
-                }
-            }
-        });
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                errorText = findViewById(R.id.errorText);
+                if (!validateForm()) return;
+                switch (radioGroup_gender.getCheckedRadioButtonId()) {
+                    case R.id.register_gender_male:
+                        registerPayload.gender = "Mezczyzna";
+                        break;
+                    case R.id.register_gender_female:
+                        registerPayload.gender = "Kobieta";
+                        break;
+                }
+                registerPayload.dateOfBirth = "2000-01-01";
                 registerPayload.username = registerLogin.getText().toString();
                 registerPayload.email = registerEmail.getText().toString();
                 registerPayload.password = registerPassword.getText().toString();
-
 
                 AuthService authService = retrofit.create(AuthService.class);
                 Call<RegisterPayload> call = authService.register(registerPayload);
                 call.enqueue(new Callback<RegisterPayload>() {
                     @Override
                     public void onResponse(Call<RegisterPayload> call, Response<RegisterPayload> response) {
-                        System.out.println(response);
-                        startActivity(intent);
+                        if (response.isSuccessful()) {
+                            System.out.println(response);
+                            startActivity(intent);
+                        } else {
+                            System.out.println(response.toString());
+                            errorText = findViewById(R.id.errorText);
+                            errorText.setText(R.string.user_exists);
+                        }
                     }
 
                     @Override
@@ -101,5 +98,28 @@ public class RegisterActivity extends AppCompatActivity {
                 });
             }
         });
+    }
+
+    private boolean validateForm() {
+        CheckBox ageCheckBox = findViewById(R.id.ageCheckBox);
+        if (!ageCheckBox.isChecked()) {
+            ageCheckBox.setError("Underage");
+            errorText.setText(R.string.user_age);
+            return false;
+        }
+
+        radioGroup_gender = findViewById(R.id.radioGroup_gender);
+        if (radioGroup_gender.getCheckedRadioButtonId() == -1) {
+            errorText.setText(R.string.user_gender);
+            return false;
+        }
+
+        TextView[] fields = {registerPassword, registerEmail, registerLogin};
+        for(TextView tw : fields) {
+            String text = tw.getText().toString();
+            errorText.setError("All fields should be filled");
+            if(text.isEmpty()) return false;
+        }
+        return true;
     }
 }
