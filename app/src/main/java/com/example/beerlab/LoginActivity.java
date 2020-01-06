@@ -62,6 +62,11 @@ public class LoginActivity extends AppCompatActivity {
                         if (response.isSuccessful()) {
                             System.out.println(response.headers().get("X-Auth-Token"));
                             token = response.headers().get("X-Auth-Token");
+
+                            SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("Auth", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("token", token);
+                            editor.commit();
                             startActivity(intent);
                         } else {
                             errorField = findViewById(R.id.errorText);
