@@ -1,5 +1,6 @@
 package com.example.beerlab;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,8 +28,6 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.example.beerlab.LoginActivity.token;
-
 public class DashboardActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private ExampleAdapter mExampleAdapter;
@@ -39,8 +38,11 @@ public class DashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu_activity);
 
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("Auth", MODE_PRIVATE);
+        String token = sharedPreferences.getString("token", "");
+
         final Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.31:8081/")
+                .baseUrl("http://10.0.2.2:8081/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
