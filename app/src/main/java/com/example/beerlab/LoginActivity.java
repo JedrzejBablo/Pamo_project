@@ -1,6 +1,5 @@
 package com.example.beerlab;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -35,11 +34,7 @@ public class LoginActivity extends AppCompatActivity {
         emailField = findViewById(R.id.login_act_email_id);
         passwordField = findViewById(R.id.login_actv_password_id);
         register = findViewById(R.id.textView_registerHere);
-        final Intent intent = new Intent(this, DashboardActivity.class);
-
-        final SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
-        final SharedPreferences.Editor editor = sharedPref.edit();
-
+        final Intent intent = new Intent(this, MainActivity.class);
 
         final Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://10.0.2.2:8081/")
