@@ -12,13 +12,13 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
 
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.nav_activity);
+        setContentView(R.layout.activity_main);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -32,36 +32,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        if (savedInstanceState == null){
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                new CartActivity());
-        navigationView.setCheckedItem(R.id.nav_cart);
+        if(savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MenuFragment()).commit();
+            navigationView.setCheckedItem(R.id.nav_menu);
         }
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        switch (menuItem.getItemId()) {
-            /*case R.id.nav_menu:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new DashboardActivity()).commit();
-                break;*/
-            case R.id.nav_cart:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new CartActivity()).commit();
-                break;
-            case R.id.nav_profile:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new ProfileActivity()).commit();
-                break;
-            case R.id.nav_currency:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new CurrencyActivity()).commit();
-                break;
-        }
-
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
 
     @Override
@@ -71,5 +45,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case R.id.nav_cart:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CartFragment()).commit();
+                break;
+            case R.id.nav_currency:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CurrencyFragment()).commit();
+                break;
+            case R.id.nav_menu:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MenuFragment()).commit();
+                break;
+            case R.id.nav_profile:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).commit();
+                break;
+        }
+        drawer.closeDrawer(GravityCompat.START);
+
+        return true;
     }
 }
