@@ -10,15 +10,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.beerlab.model.Beer;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class BeerListAdapter extends RecyclerView.Adapter<BeerListAdapter.BeerListViewHolder> {
     private Context mContext;
-    private ArrayList<ExampleItem> mExampleList;
+    private List<Beer> mExampleList;
 
-    public BeerListAdapter(MenuFragment context, ArrayList<ExampleItem> exampleList) {
+    public BeerListAdapter(MenuFragment context, List<Beer> exampleList) {
         mContext = context.getActivity();
         mExampleList = exampleList;
     }
@@ -31,12 +32,12 @@ public class BeerListAdapter extends RecyclerView.Adapter<BeerListAdapter.BeerLi
 
     @Override
     public void onBindViewHolder(@NonNull BeerListViewHolder holder, int position) {
-        ExampleItem currentItem = mExampleList.get(position);
+        Beer currentItem = mExampleList.get(position);
 
-        String imageUrl = currentItem.getmImageUrl();
-        String beerName = currentItem.getmBeer();
-        String description = currentItem.getmDescription();
-        Long price = currentItem.getmPrice();
+        String imageUrl = currentItem.getImgUrl();
+        String beerName = currentItem.getBrand();
+        String description = currentItem.getDescription();
+        Double price = currentItem.getPrice();
 
         holder.mTextViewBeer.setText(beerName);
         holder.mTextViewDescription.setText("Description: " + description);

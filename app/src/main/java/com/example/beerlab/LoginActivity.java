@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.beerlab.service.AuthService;
+import com.example.beerlab.service.BeerlabAuthService;
 import com.example.beerlab.service.LoginPayload;
 import com.example.beerlab.utils.TextValidator;
 
@@ -49,8 +49,8 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 loginPayload.email = emailField.getText().toString();
                 loginPayload.password = passwordField.getText().toString();
-                AuthService authService = retrofit.create(AuthService.class);
-                Call<LoginPayload> call = authService.login(loginPayload);
+                BeerlabAuthService beerlabAuthService = retrofit.create(BeerlabAuthService.class);
+                Call<LoginPayload> call = beerlabAuthService.login(loginPayload);
                 call.enqueue(new Callback<LoginPayload>() {
                     @Override
                     public void onResponse(Call<LoginPayload> call, Response<LoginPayload> response) {
