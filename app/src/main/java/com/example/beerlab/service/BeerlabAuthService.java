@@ -1,5 +1,8 @@
 package com.example.beerlab.service;
 
+import com.example.beerlab.payload.LoginPayload;
+import com.example.beerlab.payload.RegisterPayload;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;

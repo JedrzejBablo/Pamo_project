@@ -7,6 +7,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Path;
 
 public interface BeerlabBeerService {
 
@@ -14,6 +15,12 @@ public interface BeerlabBeerService {
     Call<List<Beer>> getBeers(@Header("X-Auth-Token") String authorization);
 
     @GET("/api/beer/{id}")
-    Call<Beer> getBeerById(@Header("X-Auth-Token") String authorization);
+    Call<Beer> getBeerById(
+            @Header("X-Auth-Token") String authorization,
+            @Path("id") Long id
+    );
+
+
+
 
 }

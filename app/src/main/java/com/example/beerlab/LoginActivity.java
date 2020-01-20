@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.beerlab.service.BeerlabAuthService;
-import com.example.beerlab.service.LoginPayload;
+import com.example.beerlab.payload.LoginPayload;
 import com.example.beerlab.utils.TextValidator;
 
 import java.util.regex.Matcher;

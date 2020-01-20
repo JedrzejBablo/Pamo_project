@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,21 +13,14 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.Volley;
+import com.example.beerlab.adapter.BeerListAdapter;
 import com.example.beerlab.model.Beer;
 import com.example.beerlab.model.User;
+import com.example.beerlab.payload.AddBeerToOrderPayload;
 import com.example.beerlab.service.BeerlabBeerService;
+import com.example.beerlab.service.BeerlabOrderService;
 import com.example.beerlab.service.BeerlabUserService;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -35,10 +29,9 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MenuFragment extends Fragment {
+public class MenuFragment extends Fragment  {
 
     private RecyclerView mRecyclerView;
-
 
     @Nullable
     @Override
@@ -102,8 +95,6 @@ public class MenuFragment extends Fragment {
 
         });
 
-
-
         return view;
 
     }
@@ -111,11 +102,57 @@ public class MenuFragment extends Fragment {
     private void showData(List<Beer> beers, View view){
 
         mRecyclerView = view.findViewById(R.id.recycler_view);
-        BeerListAdapter beerListAdapter = new BeerListAdapter(this, beers);
+        final BeerListAdapter beerListAdapter = new BeerListAdapter(this, beers);
+
+        beerListAdapter.setOnItemClickListener(new BeerListAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+
+                AddBeerToOrderPayload addBeerToOrderPayload = new AddBeerToOrderPayload(beerListAdapter.getBeer(position).getId(),1);
+                addBeerToCart(addBeerToOrderPayload);
+
+            }
+        });
+
         mRecyclerView.setAdapter(beerListAdapter);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+    }
+
+    private String getToken(){
+        MyApplication app = (MyApplication) getContext().getApplicationContext();
+
+        SharedPreferences sharedPreferences = app.getSharedPrefs();
+        return sharedPreferences.getString("token", "");
+    }
+
+    private void addBeerToCart(AddBeerToOrderPayload addBeerToOrderPayload){
+        final Retrofit askBeers = new Retrofit.Builder()
+                .baseUrl("http://10.0.2.2:8081/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        BeerlabOrderService orderService = askBeers.create(BeerlabOrderService.class);
+
+        Call<AddBeerToOrderPayload> addBeerToCart = orderService.addBeerToCart(getToken(),addBeerToOrderPayload);
+
+        addBeerToCart.enqueue(new Callback<AddBeerToOrderPayload>() {
+            @Override
+            public void onResponse(Call<AddBeerToOrderPayload> call, Response<AddBeerToOrderPayload> response) {
+                if(!response.isSuccessful()){
+                    System.out.println("Something went wrong in adding to cart " + response.code());
+                    return;
+                }
+                
+            }
+
+            @Override
+            public void onFailure(Call<AddBeerToOrderPayload> call, Throwable t) {
+                System.out.println(t.getMessage());
+
+            }
+        });
     }
 
 

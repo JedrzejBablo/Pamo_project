@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.beerlab.service.BeerlabAuthService;
-import com.example.beerlab.service.RegisterPayload;
+import com.example.beerlab.payload.RegisterPayload;
 import com.example.beerlab.utils.TextValidator;
 
 import java.util.regex.Matcher;
