@@ -20,6 +20,10 @@
             android:id="@+id/nav_currency"
             android:icon="@drawable/ic_currency"
             android:title="@string/currency" />
+        <item
+            android:id="@+id/nav_quiz"
+            android:icon="@drawable/ic_quiz"
+            android:title="@string/quiz" />
     </group>
 
 </menu>

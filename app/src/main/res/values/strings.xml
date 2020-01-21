@@ -19,11 +19,13 @@
     <string name="female">Female</string>
     <string name="register">Registration</string>
     <string name="register_button">Create account</string>
+    <string name="button">Button</string>
 
     <string name="menu">Menu</string>
     <string name="cart">Cart</string>
     <string name="profile">Profile</string>
     <string name="currency">Currency</string>
+    <string name="quiz">Quiz</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="invalid_login">Invalid login credentials</string>
