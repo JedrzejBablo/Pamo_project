@@ -22,6 +22,7 @@ public interface BeerlabOrderApi {
     @POST("/api/order/reduce/{id}")
     Call<AddBeerToOrderPayload> reduceOrderBeerQuantity(
             @Header("X-Auth-Token") String authorization,
+            @Path("id") Long itemId,
             @Body AddBeerToOrderPayload addBeerToOrderPayload
     );
 

@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.beerlab.model.Order;
 import com.example.beerlab.view.MenuFragment;
 import com.example.beerlab.R;
 import com.example.beerlab.model.Beer;

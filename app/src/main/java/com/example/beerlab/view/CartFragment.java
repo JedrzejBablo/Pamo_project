@@ -16,6 +16,7 @@ import com.example.beerlab.model.Order;
 import com.example.beerlab.model.OrderItem;
 import com.example.beerlab.api.BeerlabOrderApi;
 import com.example.beerlab.service.BeerlabAuthService;
+import com.example.beerlab.service.BeerlabOrderService;
 
 import java.util.List;
 
@@ -37,50 +38,10 @@ public class CartFragment extends Fragment {
         BeerlabAuthService beerlabAuthService = new BeerlabAuthService(getContext().getApplicationContext());
         beerlabAuthService.verifyUser();
 
-
-        final Retrofit askOrder = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:8081/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        BeerlabOrderApi orderService = askOrder.create(BeerlabOrderApi.class);
-
-        Call<Order> callOrder = orderService.getOrder(beerlabAuthService.getToken());
-
-        callOrder.enqueue(new Callback<Order>() {
-            @Override
-            public void onResponse(Call<Order> call, Response<Order> response) {
-                if (!response.isSuccessful()){
-                    System.out.println("Wooooow, something went wrong ! :( " + response.code());
-                    return;
-                }
-
-                showData(response.body().getOrderItemsDto(), view);
-
-            }
-
-            @Override
-            public void onFailure(Call<Order> call, Throwable t) {
-                System.out.println(t.getMessage());
-            }
-
-
-        });
-
-
+        BeerlabOrderService beerlabOrderService = new BeerlabOrderService(view,mRecyclerView,this,getActivity(),getContext().getApplicationContext());
+        beerlabOrderService.showCartItems();
 
         return view;
-    }
-
-    private void showData(List<OrderItem> orders, View view){
-
-        mRecyclerView = view.findViewById(R.id.order_item_recycler_view);
-        OrderItemListAdapter orderItemListAdapter = new OrderItemListAdapter(this, orders);
-
-        mRecyclerView.setAdapter(orderItemListAdapter);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
     }
 
 }
