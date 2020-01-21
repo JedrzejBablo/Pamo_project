@@ -7,28 +7,28 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:name=".MyApplication"
+        android:name=".utils.MyApplication"
         android:usesCleartextTraffic="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
 
-        <activity android:name="com.example.beerlab.LoginActivity">
+        <activity android:name="com.example.beerlab.activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.beerlab.RegisterActivity">
+        <activity android:name="com.example.beerlab.activity.RegisterActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.beerlab.MainActivity">
+        <activity android:name="com.example.beerlab.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

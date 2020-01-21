@@ -1,4 +1,4 @@
-package com.example.beerlab;
+package com.example.beerlab.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.beerlab.R;
+import com.example.beerlab.activity.LoginActivity;
 import com.example.beerlab.api.BeerlabAuthApi;
 import com.example.beerlab.payload.RegisterPayload;
 import com.example.beerlab.utils.TextValidator;

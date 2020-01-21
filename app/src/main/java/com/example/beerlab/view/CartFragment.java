@@ -1,6 +1,5 @@
 package com.example.beerlab.view;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,14 +10,11 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.beerlab.MyApplication;
 import com.example.beerlab.R;
 import com.example.beerlab.adapter.OrderItemListAdapter;
 import com.example.beerlab.model.Order;
 import com.example.beerlab.model.OrderItem;
-import com.example.beerlab.model.User;
 import com.example.beerlab.api.BeerlabOrderApi;
-import com.example.beerlab.api.BeerlabUserApi;
 import com.example.beerlab.service.BeerlabAuthService;
 
 import java.util.List;

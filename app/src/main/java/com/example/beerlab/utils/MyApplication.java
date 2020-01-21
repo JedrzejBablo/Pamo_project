@@ -1,4 +1,4 @@
-package com.example.beerlab;
+package com.example.beerlab.utils;
 
 import android.app.Application;
 import android.content.SharedPreferences;

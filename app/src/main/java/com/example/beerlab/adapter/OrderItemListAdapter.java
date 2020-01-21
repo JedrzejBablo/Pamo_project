@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,6 +25,23 @@ public class OrderItemListAdapter extends RecyclerView.Adapter<OrderItemListAdap
 
     private Context orderItemContext;
     private List<OrderItem> orderItems;
+    private OrderItemListAdapter.OnItemClickListener listener;
+
+
+
+    public interface OnItemClickListener {
+        void increaseQuantity(int position);
+        void decreaseQuantity(int position);
+        void deleteFromCart(int position);
+    }
+
+    public void setOnItemClickListener(OrderItemListAdapter.OnItemClickListener listener) { this.listener = listener;}
+
+
+
+    public OrderItem getOrderItem(int position){
+        return orderItems.get(position);
+    }
 
     public OrderItemListAdapter(CartFragment orderItemContext, List<OrderItem> orderItems) {
         this.orderItemContext = orderItemContext.getActivity();
@@ -35,7 +53,7 @@ public class OrderItemListAdapter extends RecyclerView.Adapter<OrderItemListAdap
     public OrderItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(orderItemContext).inflate(R.layout.order_item_list_item, parent, false);
-        OrderItemViewHolder holder = new OrderItemViewHolder(view);
+        OrderItemViewHolder holder = new OrderItemViewHolder(view, listener);
 
         return holder;
     }
@@ -70,13 +88,57 @@ public class OrderItemListAdapter extends RecyclerView.Adapter<OrderItemListAdap
         public TextView orderItemBrandView;
         public TextView orderItemUnitPriceView;
         public TextView orderItemQuantityView;
+        public Button increaseQuantityButton;
+        public Button decreaseQuantityButton;
+        public Button deleteFromCartButton;
 
-        public OrderItemViewHolder(View orderItemView){
+        public OrderItemViewHolder(View orderItemView, final OrderItemListAdapter.OnItemClickListener onItemClickListener){
             super(orderItemView);
             orderItemImageView = itemView.findViewById(R.id.imageView_menu);
             orderItemBrandView = itemView.findViewById(R.id.textView_beerName);
             orderItemUnitPriceView = itemView.findViewById(R.id.textView_price);
             orderItemQuantityView = itemView.findViewById(R.id.textView_quantity);
+
+            increaseQuantityButton = orderItemView.findViewById(R.id.button_increaseAmount);
+            decreaseQuantityButton = orderItemView.findViewById(R.id.button_decreaseAmount);
+            deleteFromCartButton = orderItemView.findViewById(R.id.button_deleteFromCart);
+
+            increaseQuantityButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(onItemClickListener != null){
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION){
+                            onItemClickListener.increaseQuantity(position);
+                        }
+                    }
+                }
+
+            });
+
+            decreaseQuantityButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(onItemClickListener != null){
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION){
+                            onItemClickListener.decreaseQuantity(position);
+                        }
+                    }
+                }
+            });
+
+            deleteFromCartButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(onItemClickListener != null){
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION){
+                            onItemClickListener.deleteFromCart(position);
+                        }
+                    }
+                }
+            });
 
 
         }

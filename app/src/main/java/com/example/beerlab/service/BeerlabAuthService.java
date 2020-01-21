@@ -1,10 +1,9 @@
 package com.example.beerlab.service;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.example.beerlab.MyApplication;
+import com.example.beerlab.utils.MyApplication;
 import com.example.beerlab.api.BeerlabUserApi;
 import com.example.beerlab.model.User;
 
