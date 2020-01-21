@@ -12,7 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.beerlab.view.CartFragment;
+import com.example.beerlab.fragment.CartFragment;
 import com.example.beerlab.R;
 import com.example.beerlab.model.OrderItem;
 import com.squareup.picasso.Picasso;

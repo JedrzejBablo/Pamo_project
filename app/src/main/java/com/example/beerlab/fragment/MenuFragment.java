@@ -1,4 +1,4 @@
-package com.example.beerlab.view;
+package com.example.beerlab.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

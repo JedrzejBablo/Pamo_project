@@ -11,10 +11,10 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.beerlab.R;
-import com.example.beerlab.view.CartFragment;
-import com.example.beerlab.view.CurrencyFragment;
-import com.example.beerlab.view.MenuFragment;
-import com.example.beerlab.view.ProfileFragment;
+import com.example.beerlab.fragment.CartFragment;
+import com.example.beerlab.fragment.CurrencyFragment;
+import com.example.beerlab.fragment.MenuFragment;
+import com.example.beerlab.fragment.ProfileFragment;
 import com.google.android.material.navigation.NavigationView;
 
 

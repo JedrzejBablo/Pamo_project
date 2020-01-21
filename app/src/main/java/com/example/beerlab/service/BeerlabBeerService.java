@@ -13,7 +13,7 @@ import com.example.beerlab.api.BeerlabBeerApi;
 import com.example.beerlab.api.BeerlabOrderApi;
 import com.example.beerlab.model.Beer;
 import com.example.beerlab.payload.AddBeerToOrderPayload;
-import com.example.beerlab.view.MenuFragment;
+import com.example.beerlab.fragment.MenuFragment;
 
 import java.util.List;
 
