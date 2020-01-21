@@ -1,4 +1,4 @@
-package com.example.beerlab;
+package com.example.beerlab.view;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,15 +11,15 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.beerlab.adapter.BeerListAdapter;
+import com.example.beerlab.MyApplication;
+import com.example.beerlab.R;
 import com.example.beerlab.adapter.OrderItemListAdapter;
-import com.example.beerlab.model.Beer;
 import com.example.beerlab.model.Order;
 import com.example.beerlab.model.OrderItem;
 import com.example.beerlab.model.User;
-import com.example.beerlab.service.BeerlabBeerService;
-import com.example.beerlab.service.BeerlabOrderService;
-import com.example.beerlab.service.BeerlabUserService;
+import com.example.beerlab.api.BeerlabOrderApi;
+import com.example.beerlab.api.BeerlabUserApi;
+import com.example.beerlab.service.BeerlabAuthService;
 
 import java.util.List;
 
@@ -38,35 +38,8 @@ public class CartFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_cart,container,false);
 
-        MyApplication app = (MyApplication) getContext().getApplicationContext();
-
-        SharedPreferences sharedPreferences = app.getSharedPrefs();
-        String token = sharedPreferences.getString("token", "");
-
-        final Retrofit askUser = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:8081/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        BeerlabUserService userService = askUser.create(BeerlabUserService.class);
-        Call<User> call = userService.checkMe(token);
-        call.enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                if(!response.isSuccessful()){
-                    System.out.println("Wooooow, something went wrong in capturing user credentials! :(" + response.code());
-                    return;
-                }
-                User user = response.body();
-                System.out.println(user.toString());
-            }
-
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-                System.out.println(t.getMessage());
-            }
-        });
-
+        BeerlabAuthService beerlabAuthService = new BeerlabAuthService(getContext().getApplicationContext());
+        beerlabAuthService.verifyUser();
 
 
         final Retrofit askOrder = new Retrofit.Builder()
@@ -74,9 +47,9 @@ public class CartFragment extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        BeerlabOrderService orderService = askOrder.create(BeerlabOrderService.class);
+        BeerlabOrderApi orderService = askOrder.create(BeerlabOrderApi.class);
 
-        Call<Order> callOrder = orderService.getOrder(token);
+        Call<Order> callOrder = orderService.getOrder(beerlabAuthService.getToken());
 
         callOrder.enqueue(new Callback<Order>() {
             @Override
@@ -107,21 +80,11 @@ public class CartFragment extends Fragment {
 
         mRecyclerView = view.findViewById(R.id.order_item_recycler_view);
         OrderItemListAdapter orderItemListAdapter = new OrderItemListAdapter(this, orders);
-//        orderItemListAdapter.setOnItemClickListener(new OrderItemListAdapter.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(int position) {
-//
-//            }
-//        });
+
         mRecyclerView.setAdapter(orderItemListAdapter);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
     }
-
-//    private void setButton() {
-//        addToCartButton = addToCartButton.findViewById(R.id.button_addToCart);
-//        addToCartButton.setOnClickListener(onClickListener);
-//    }
 
 }

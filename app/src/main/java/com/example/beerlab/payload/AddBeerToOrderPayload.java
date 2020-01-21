@@ -10,19 +10,4 @@ public class AddBeerToOrderPayload {
         this.quantity = quantity;
     }
 
-    public void setBeerId(Long beerId) {
-        this.beerId = beerId;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public Long getBeerId() {
-        return beerId;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
 }
