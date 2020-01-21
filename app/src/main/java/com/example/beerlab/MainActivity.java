@@ -10,6 +10,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.beerlab.view.CartFragment;
+import com.example.beerlab.view.CurrencyFragment;
+import com.example.beerlab.view.MenuFragment;
+import com.example.beerlab.view.ProfileFragment;
 import com.google.android.material.navigation.NavigationView;
 
 

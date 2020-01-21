@@ -1,15 +1,18 @@
-package com.example.beerlab;
+package com.example.beerlab.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.beerlab.view.MenuFragment;
+import com.example.beerlab.R;
 import com.example.beerlab.model.Beer;
 import com.squareup.picasso.Picasso;
 
@@ -18,16 +21,34 @@ import java.util.List;
 public class BeerListAdapter extends RecyclerView.Adapter<BeerListAdapter.BeerListViewHolder> {
     private Context mContext;
     private List<Beer> mExampleList;
+    private OnItemClickListener listener;
+
+
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) { this.listener = listener;}
+
+
+
+    public Beer getBeer(int position){
+        return mExampleList.get(position);
+    }
+
+
 
     public BeerListAdapter(MenuFragment context, List<Beer> exampleList) {
         mContext = context.getActivity();
         mExampleList = exampleList;
+
     }
 
     @Override
     public BeerListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(mContext).inflate(R.layout.beer_list_item, parent, false);
-        return new BeerListViewHolder(v);
+        return new BeerListViewHolder(v, listener);
     }
 
     @Override
@@ -50,24 +71,37 @@ public class BeerListAdapter extends RecyclerView.Adapter<BeerListAdapter.BeerLi
         return mExampleList.size();
     }
 
-    public class BeerListViewHolder extends RecyclerView.ViewHolder implements  View.OnClickListener {
+
+    public static class BeerListViewHolder extends RecyclerView.ViewHolder {
 
         public ImageView mImageView;
         public TextView mTextViewBeer;
         public TextView mTextViewDescription;
         public TextView mTextViewPrice;
+        public Button orderAddToCartButton;
 
-        public BeerListViewHolder(@NonNull View itemView) {
+        public BeerListViewHolder(@NonNull View itemView, final OnItemClickListener onItemClickListener) {
             super(itemView);
             mImageView = itemView.findViewById(R.id.imageView_menu);
             mTextViewBeer = itemView.findViewById(R.id.textView_beerName);
             mTextViewDescription = itemView.findViewById(R.id.textView_description);
             mTextViewPrice = itemView.findViewById(R.id.textView_price);
-            itemView.setOnClickListener(this);
-        }
+            orderAddToCartButton = itemView.findViewById(R.id.button_addToCart);
 
-        public void onClick(View view){
 
+            orderAddToCartButton.setOnClickListener(new View.OnClickListener(){
+
+                @Override
+                public void onClick(View view) {
+                    if(onItemClickListener != null){
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION){
+                            onItemClickListener.onItemClick(position);
+                        }
+                    }
+                }
+
+            });
         }
 
     }

@@ -1,4 +1,4 @@
-package com.example.beerlab.service;
+package com.example.beerlab.payload;
 
 public class RegisterPayload {
     public String username;

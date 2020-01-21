@@ -1,4 +1,4 @@
-package com.example.beerlab;
+package com.example.beerlab.view;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,11 +7,13 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
-public class CurrencyFragment extends Fragment {
+import com.example.beerlab.R;
+
+public class ProfileFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_currency, container, false);
+        return inflater.inflate(R.layout.fragment_profile, container, false);
     }
 
 }
