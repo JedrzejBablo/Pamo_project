@@ -1,5 +1,8 @@
 package com.example.beerlab.payload;
 
+/**
+ * Class that holds AddBeerToOrderPayload object which later is send to the backend
+ */
 public class AddBeerToOrderPayload {
 
     private Long beerId;

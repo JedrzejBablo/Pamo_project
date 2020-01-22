@@ -24,17 +24,29 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity {
+
     Button login;
+
     LoginPayload loginPayload = new LoginPayload();
+
     TextView emailField, passwordField, register, errorField;
+
     public static String token ="";
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.login_activity);
+
         login = findViewById(R.id.button_login_id);
+
         emailField = findViewById(R.id.login_act_email_id);
+
         passwordField = findViewById(R.id.login_actv_password_id);
+
         register = findViewById(R.id.textView_registerHere);
+
         final Intent intent = new Intent(this, MainActivity.class);
 
         final Retrofit retrofit = new Retrofit.Builder()

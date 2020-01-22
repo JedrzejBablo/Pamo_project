@@ -70,8 +70,8 @@ public class OrderItemListAdapter extends RecyclerView.Adapter<OrderItemListAdap
         Double price = currentItem.getUnitPrice();
 
         holder.orderItemBrandView.setText(beerName);
-        holder.orderItemQuantityView.setText("Quantity: " + quantity);
-        holder.orderItemUnitPriceView.setText("Unit Price: " + price);
+        holder.orderItemQuantityView.setText("" + R.string.beer_quantity + quantity);
+        holder.orderItemUnitPriceView.setText("" + R.string.beer_unit_price + price);
         Picasso.get().load(imageUrl).fit().centerInside().into(holder.orderItemImageView);
 
     }

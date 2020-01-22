@@ -1,5 +1,8 @@
 package com.example.beerlab.model;
 
+/**
+ * Class that holds Beer object for requesting
+ */
 public class Beer {
     private Long id;
     private String description;

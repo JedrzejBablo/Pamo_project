@@ -3,6 +3,7 @@ package com.example.beerlab.service;
 import android.app.Activity;
 import android.content.Context;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,25 +24,41 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * BeerlabOrderService is a class that is responsible for dealing with orders.
+ */
 public class BeerlabOrderService {
 
     private View view;
     private RecyclerView recyclerView;
     private Order order;
+    private TextView totalAmountView;
     private BeerlabAuthService beerlabAuthService;
     private CartFragment cartFragment;
     private Activity activity;
 
 
-    public BeerlabOrderService(View view, RecyclerView recyclerView, CartFragment cartFragment, Activity activity, Context context) {
+    public BeerlabOrderService(View view, CartFragment cartFragment, Activity activity, Context context) {
         this.view = view;
-        this.recyclerView = recyclerView;
         this.cartFragment = cartFragment;
         this.activity = activity;
         this.beerlabAuthService = new BeerlabAuthService(context);
     }
 
+    /**
+     * Method that is responsible for setting total order value
+     * @param view
+     */
+    public void setTotalAmountView(View view){
+        totalAmountView = view.findViewById(R.id.textView_total);
+        totalAmountView.setText("" + R.string.total_amount + order.getTotalPrice());
+    }
 
+    /**
+     * Method that is responsible for showing cart items. It is using Retrofit library to ask API
+     * for current user order. When it get it, then showCartItems method is setting order, setting
+     * total order value and call method showData
+     */
     public void showCartItems(){
         final Retrofit askOrder = new Retrofit.Builder()
                 .baseUrl("http://10.0.2.2:8081/")
@@ -60,6 +77,7 @@ public class BeerlabOrderService {
                     return;
                 }
                 setOrder(response.body());
+                setTotalAmountView(view);
                 showData(response.body().getOrderItemsDto(), view);
 
             }
@@ -79,10 +97,15 @@ public class BeerlabOrderService {
     }
 
 
+    /**
+     * showData method is responsible for showing current user order in application. It also implements
+     * OrderItemListAdapter.OnItemClickListener interface.
+     */
     private void showData(List<OrderItem> orders, View view){
 
         recyclerView = view.findViewById(R.id.order_item_recycler_view);
         final OrderItemListAdapter orderItemListAdapter = new OrderItemListAdapter(cartFragment, orders);
+
 
         orderItemListAdapter.setOnItemClickListener(new OrderItemListAdapter.OnItemClickListener() {
             @Override
@@ -110,6 +133,11 @@ public class BeerlabOrderService {
 
     }
 
+    /**
+     * decreaseQuantity method is responsible for decreasing item quantity in cart
+     * @param id
+     * @param addBeerToOrderPayload
+     */
     private void decreaseQuantity(Long id,AddBeerToOrderPayload addBeerToOrderPayload){
         final Retrofit askBeers = new Retrofit.Builder()
                 .baseUrl("http://10.0.2.2:8081/")
@@ -137,6 +165,11 @@ public class BeerlabOrderService {
         });
     }
 
+    /**
+     * deleteItemFromCart method is responsible for deleting item from cart
+     * @param orderId
+     * @param beerId
+     */
     private void deleteItemFromCart(Long orderId,Long beerId){
         final Retrofit askBeers = new Retrofit.Builder()
                 .baseUrl("http://10.0.2.2:8081/")
@@ -163,6 +196,10 @@ public class BeerlabOrderService {
         });
     }
 
+    /**
+     * addBeerToCart function is responsible for increasing cart item quantity
+     * @param addBeerToOrderPayload
+     */
     private void addBeerToCart(AddBeerToOrderPayload addBeerToOrderPayload){
         final Retrofit askBeers = new Retrofit.Builder()
                 .baseUrl("http://10.0.2.2:8081/")
