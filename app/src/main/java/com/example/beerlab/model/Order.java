@@ -3,6 +3,9 @@ package com.example.beerlab.model;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Class that holds Order for requesting
+ */
 public class Order {
 
     private Long id;

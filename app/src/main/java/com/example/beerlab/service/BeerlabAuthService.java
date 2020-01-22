@@ -13,6 +13,11 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * Service class which is responsible for authentication with backend.
+ * In BeerlabAuthService we store methods which are sending API calls to backend
+ *  to authenticate with server.
+ */
 public class BeerlabAuthService {
 
     Context context;
@@ -21,6 +26,10 @@ public class BeerlabAuthService {
         this.context = context;
     }
 
+    /**
+     * getToken function is responsible for getting token
+     * @return
+     */
     public String getToken(){
         MyApplication app = (MyApplication) context;
 
@@ -28,6 +37,9 @@ public class BeerlabAuthService {
         return sharedPreferences.getString("token", "");
     }
 
+    /**
+     * verifyUser function is responsible for authenticate user with server
+     */
     public void verifyUser() {
         final Retrofit askUser = new Retrofit.Builder()
                 .baseUrl("http://10.0.2.2:8081/")

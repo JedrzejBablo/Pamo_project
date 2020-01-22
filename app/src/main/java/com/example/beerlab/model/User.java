@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Class that holds User for requesting
+ */
 public class User {
     private Long id;
     private String username;

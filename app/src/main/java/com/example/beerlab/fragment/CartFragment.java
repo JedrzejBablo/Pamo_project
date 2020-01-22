@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,7 +17,6 @@ import com.example.beerlab.service.BeerlabOrderService;
 public class CartFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
-    private Button addToCartButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -25,7 +25,7 @@ public class CartFragment extends Fragment {
         BeerlabAuthService beerlabAuthService = new BeerlabAuthService(getContext().getApplicationContext());
         beerlabAuthService.verifyUser();
 
-        BeerlabOrderService beerlabOrderService = new BeerlabOrderService(view,mRecyclerView,this,getActivity(),getContext().getApplicationContext());
+        BeerlabOrderService beerlabOrderService = new BeerlabOrderService(view,this,getActivity(),getContext().getApplicationContext());
         beerlabOrderService.showCartItems();
 
         return view;

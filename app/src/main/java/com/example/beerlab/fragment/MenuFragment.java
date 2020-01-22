@@ -27,7 +27,7 @@ public class MenuFragment extends Fragment  {
         BeerlabAuthService beerlabAuthService = new BeerlabAuthService(getContext().getApplicationContext());
         beerlabAuthService.verifyUser();
 
-        BeerlabBeerService beerlabBeerService = new BeerlabBeerService(view,mRecyclerView,this,getActivity(),getContext().getApplicationContext());
+        BeerlabBeerService beerlabBeerService = new BeerlabBeerService(view,this,getActivity(),getContext().getApplicationContext());
         beerlabBeerService.showBeers();
 
 

@@ -1,5 +1,8 @@
 package com.example.beerlab.model;
 
+/**
+ * Class that holds OrderItem for requesting
+ */
 public class OrderItem {
     private long id;
     private Beer beerDto;

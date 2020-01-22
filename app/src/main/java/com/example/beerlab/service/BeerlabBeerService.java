@@ -23,6 +23,9 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * BeerlabBeerService is a service class that is responsible for managing beers.
+ */
 public class BeerlabBeerService {
 
     private View view;
@@ -32,14 +35,16 @@ public class BeerlabBeerService {
     private Activity activity;
 
 
-    public BeerlabBeerService(View view, RecyclerView recyclerView, MenuFragment menuFragment, Activity activity, Context context) {
+    public BeerlabBeerService(View view, MenuFragment menuFragment, Activity activity, Context context) {
         this.view = view;
-        this.recyclerView = recyclerView;
         this.menuFragment = menuFragment;
         this.activity = activity;
         this.beerlabAuthService = new BeerlabAuthService(context);
     }
-
+/**
+ * showBeers function is responsible receive Beer list from API and then call showData function to show them in MenuFragment.
+ * It use Retrofit library to receive json with list of beers and parse it into Beer objects list
+ */
     public void showBeers(){
 
         final Retrofit askBeers = new Retrofit.Builder()
@@ -72,6 +77,13 @@ public class BeerlabBeerService {
         });
     }
 
+    /**
+     * showData function is responsible for show beerList in MenuFragment.
+     * It use BeerListAdapter class to put appropriate data received from server to
+     * recycler view. It also implement onItemClick method from BeerlistAdapter.OnItemClickListener interface.
+     * @param beers
+     * @param view
+     */
     private void showData(List<Beer> beers, View view){
 
         recyclerView = view.findViewById(R.id.recycler_view);
@@ -93,6 +105,11 @@ public class BeerlabBeerService {
 
     }
 
+    /**
+     * AddBeerToCart method is responsible for obviously adding beer to cart. In that purpose it use
+     * Retrofit library to post AddBeerOrderPayload to server.
+     * @param addBeerToOrderPayload
+     */
     private void addBeerToCart(AddBeerToOrderPayload addBeerToOrderPayload){
         final Retrofit askBeers = new Retrofit.Builder()
                 .baseUrl("http://10.0.2.2:8081/")
