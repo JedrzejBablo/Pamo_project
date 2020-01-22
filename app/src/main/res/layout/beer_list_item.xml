@@ -6,54 +6,68 @@
     android:layout_margin="8dp"
     app:cardCornerRadius="8dp">
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/relative"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:background="#f1f1b0"
         android:orientation="vertical"
-        android:padding="16dp"
-        android:background="#af622b">
+        android:padding="16dp">
 
         <ImageView
             android:id="@+id/imageView_menu"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:src="@mipmap/ic_launcher"
-            android:contentDescription="@string/image_menu" />
+            android:layout_height="300dp"
+            android:contentDescription="@string/image_menu"
+            android:src="@mipmap/ic_launcher" />
 
         <TextView
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/imageView_menu"
             android:id="@+id/textView_beerName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/beer_name"
-            android:textColor="@android:color/white"
-            android:textSize="20sp"/>
+            android:textColor="@color/colorDarkBlue"
+            android:textSize="30sp" />
 
         <TextView
+            android:layout_below="@id/textView_beerName"
             android:id="@+id/textView_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/description"
-            android:textColor="@android:color/white"
-            android:textSize="15sp"/>
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/colorDarkBlue"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"/>
 
         <TextView
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/textView_description"
+            android:layout_marginTop="10dp"
             android:id="@+id/textView_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/price"
-            android:textColor="@android:color/white"
-            android:textSize="15sp"/>
+            android:textColor="@color/colorDarkBlue"
+            android:textSize="20sp" />
+
         <Button
+            android:layout_below="@id/textView_price"
+            android:layout_centerHorizontal="true"
             android:id="@+id/button_addToCart"
-            android:layout_width="wrap_content"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/menu_button"
             android:text="@string/add_to_cart_button"
 
             />
 
 
-
-    </LinearLayout>
+    </RelativeLayout>
 
 
 </androidx.cardview.widget.CardView>
