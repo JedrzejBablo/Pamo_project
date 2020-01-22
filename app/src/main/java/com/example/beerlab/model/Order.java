@@ -1,6 +1,5 @@
 package com.example.beerlab.model;
 
-import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -9,11 +8,11 @@ public class Order {
     private Long id;
     private List<OrderItem> orderItemsDto;
     private OrderStatus status;
-    private LocalDateTime startedTime;
-    private LocalDateTime completeTime;
+    private Object startedTime;
+    private Object completeTime;
     private Double totalPrice;
 
-    public Order(List<OrderItem> orderItemsDto, OrderStatus status, LocalDateTime startedTime, LocalDateTime completeTime, Double totalPrice) {
+    public Order(List<OrderItem> orderItemsDto, OrderStatus status, Object startedTime, Object completeTime, Double totalPrice) {
         this.orderItemsDto = orderItemsDto;
         this.status = status;
         this.startedTime = startedTime;
@@ -33,11 +32,11 @@ public class Order {
         return status;
     }
 
-    public LocalDateTime getStartedTime() {
+    public Object getStartedTime() {
         return startedTime;
     }
 
-    public LocalDateTime getCompleteTime() {
+    public Object getCompleteTime() {
         return completeTime;
     }
 

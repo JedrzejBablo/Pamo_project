@@ -8,14 +8,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.beerlab.R;
-import com.example.beerlab.adapter.BeerListAdapter;
 import com.example.beerlab.adapter.OrderItemListAdapter;
 import com.example.beerlab.api.BeerlabOrderApi;
 import com.example.beerlab.model.Order;
 import com.example.beerlab.model.OrderItem;
 import com.example.beerlab.payload.AddBeerToOrderPayload;
-import com.example.beerlab.view.CartFragment;
-import com.example.beerlab.view.MenuFragment;
+import com.example.beerlab.fragment.CartFragment;
 
 import java.util.List;
 
