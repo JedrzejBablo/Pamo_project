@@ -36,13 +36,15 @@ public class BeerlabOrderService {
     private BeerlabAuthService beerlabAuthService;
     private CartFragment cartFragment;
     private Activity activity;
+    private String baseUrl;
 
 
-    public BeerlabOrderService(View view, CartFragment cartFragment, Activity activity, Context context) {
+    public BeerlabOrderService(View view, CartFragment cartFragment, Activity activity, Context context, String baseUrl) {
         this.view = view;
         this.cartFragment = cartFragment;
         this.activity = activity;
         this.beerlabAuthService = new BeerlabAuthService(context);
+        this.baseUrl = baseUrl;
     }
 
     /**
@@ -51,7 +53,7 @@ public class BeerlabOrderService {
      */
     public void setTotalAmountView(View view){
         totalAmountView = view.findViewById(R.id.textView_total);
-        totalAmountView.setText("" + R.string.total_amount + order.getTotalPrice());
+        totalAmountView.setText("Total: " + order.getTotalPrice());
     }
 
     /**
@@ -59,9 +61,9 @@ public class BeerlabOrderService {
      * for current user order. When it get it, then showCartItems method is setting order, setting
      * total order value and call method showData
      */
-    public void showCartItems(){
+    public void showCartItems(String baseUrl){
         final Retrofit askOrder = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:8081/")
+                .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -111,19 +113,19 @@ public class BeerlabOrderService {
             @Override
             public void increaseQuantity(int position) {
                 AddBeerToOrderPayload addBeerToOrderPayload = new AddBeerToOrderPayload(orderItemListAdapter.getOrderItem(position).getBeerDto().getId(),1);
-                addBeerToCart(addBeerToOrderPayload);
+                addBeerToCart(addBeerToOrderPayload,baseUrl);
             }
 
             @Override
             public void decreaseQuantity(int position) {
                 AddBeerToOrderPayload addBeerToOrderPayload = new AddBeerToOrderPayload(orderItemListAdapter.getOrderItem(position).getBeerDto().getId(), 1);
-                BeerlabOrderService.this.decreaseQuantity(order.getId(),addBeerToOrderPayload);
+                BeerlabOrderService.this.decreaseQuantity(order.getId(),addBeerToOrderPayload,baseUrl);
 
             }
 
             @Override
             public void deleteFromCart(int position) {
-                deleteItemFromCart(order.getId(),orderItemListAdapter.getOrderItem(position).getBeerDto().getId());
+                deleteItemFromCart(order.getId(),orderItemListAdapter.getOrderItem(position).getBeerDto().getId(),baseUrl);
             }
         });
 
@@ -138,9 +140,9 @@ public class BeerlabOrderService {
      * @param id
      * @param addBeerToOrderPayload
      */
-    private void decreaseQuantity(Long id,AddBeerToOrderPayload addBeerToOrderPayload){
+    private void decreaseQuantity(Long id,AddBeerToOrderPayload addBeerToOrderPayload, String baseUrl){
         final Retrofit askBeers = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:8081/")
+                .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -170,9 +172,9 @@ public class BeerlabOrderService {
      * @param orderId
      * @param beerId
      */
-    private void deleteItemFromCart(Long orderId,Long beerId){
+    private void deleteItemFromCart(Long orderId,Long beerId, String baseUrl){
         final Retrofit askBeers = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:8081/")
+                .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -200,9 +202,9 @@ public class BeerlabOrderService {
      * addBeerToCart function is responsible for increasing cart item quantity
      * @param addBeerToOrderPayload
      */
-    private void addBeerToCart(AddBeerToOrderPayload addBeerToOrderPayload){
+    private void addBeerToCart(AddBeerToOrderPayload addBeerToOrderPayload, String baseUrl){
         final Retrofit askBeers = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:8081/")
+                .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

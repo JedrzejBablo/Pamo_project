@@ -17,16 +17,17 @@ import com.example.beerlab.service.BeerlabOrderService;
 public class CartFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
+    private String baseUrl = "http://10.0.2.2:8081/";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_cart,container,false);
 
         BeerlabAuthService beerlabAuthService = new BeerlabAuthService(getContext().getApplicationContext());
-        beerlabAuthService.verifyUser();
+        beerlabAuthService.verifyUser(baseUrl);
 
-        BeerlabOrderService beerlabOrderService = new BeerlabOrderService(view,this,getActivity(),getContext().getApplicationContext());
-        beerlabOrderService.showCartItems();
+        BeerlabOrderService beerlabOrderService = new BeerlabOrderService(view,this,getActivity(),getContext().getApplicationContext(),baseUrl);
+        beerlabOrderService.showCartItems(baseUrl);
 
         return view;
     }

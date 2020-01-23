@@ -103,7 +103,7 @@ public class BeerListAdapter extends RecyclerView.Adapter<BeerListAdapter.BeerLi
 
         holder.mTextViewBeer.setText(beerName);
         holder.mTextViewDescription.setText(description);
-        holder.mTextViewPrice.setText("" + R.string.beer_price + price);
+        holder.mTextViewPrice.setText( "Price: " + price);
         Picasso.get().load(imageUrl).fit().centerInside().into(holder.mImageView);
     }
 

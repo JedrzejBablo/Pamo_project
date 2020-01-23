@@ -9,6 +9,10 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Path;
 
+/**
+ * In BeerlabAuthApi interface we use Retrofit to make requests to independent API
+ * This interface handle with beer endpoint requests
+ */
 public interface BeerlabBeerApi {
 
     @GET("/api/beer")
