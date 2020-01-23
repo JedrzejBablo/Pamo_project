@@ -39,6 +39,7 @@ public class BeerlabAuthService {
 
     /**
      * verifyUser function is responsible for authenticate user with server
+     * @param baseUrl
      */
     public void verifyUser(String baseUrl) {
         final Retrofit askUser = new Retrofit.Builder()

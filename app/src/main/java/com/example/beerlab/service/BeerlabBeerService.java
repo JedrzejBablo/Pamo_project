@@ -46,6 +46,7 @@ public class BeerlabBeerService {
 /**
  * showBeers function is responsible receive Beer list from API and then call showData function to show them in MenuFragment.
  * It use Retrofit library to receive json with list of beers and parse it into Beer objects list
+ * @param baseUrl
  */
     public void showBeers(String baseUrl){
 
@@ -111,6 +112,7 @@ public class BeerlabBeerService {
      * AddBeerToCart method is responsible for obviously adding beer to cart. In that purpose it use
      * Retrofit library to post AddBeerOrderPayload to server.
      * @param addBeerToOrderPayload
+     * @param baseUrl
      */
     private void addBeerToCart(AddBeerToOrderPayload addBeerToOrderPayload, String baseUrl){
         final Retrofit askBeers = new Retrofit.Builder()

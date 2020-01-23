@@ -53,13 +53,14 @@ public class BeerlabOrderService {
      */
     public void setTotalAmountView(View view){
         totalAmountView = view.findViewById(R.id.textView_total);
-        totalAmountView.setText("Total: " + order.getTotalPrice());
+        totalAmountView.setText(activity.getApplicationContext().getString(R.string.total_amount) + order.getTotalPrice());
     }
 
     /**
      * Method that is responsible for showing cart items. It is using Retrofit library to ask API
      * for current user order. When it get it, then showCartItems method is setting order, setting
      * total order value and call method showData
+     * @param baseUrl
      */
     public void showCartItems(String baseUrl){
         final Retrofit askOrder = new Retrofit.Builder()
@@ -92,6 +93,38 @@ public class BeerlabOrderService {
 
         });
 
+    }
+
+    /**
+     * confirmOrder method is responsible for calling API in order to confirm current user order
+     * @param baseUrl
+     */
+    public void confirmOrder(String baseUrl){
+        final Retrofit askOrder = new Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        BeerlabOrderApi orderService = askOrder.create(BeerlabOrderApi.class);
+
+        Call<Order> callOrder = orderService.confirmOrder(beerlabAuthService.getToken());
+
+        callOrder.enqueue(new Callback<Order>() {
+            @Override
+            public void onResponse(Call<Order> call, Response<Order> response) {
+                if (!response.isSuccessful()){
+                    System.out.println("Wooooow, something went wrong ! :( " + response.code());
+                    return;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Order> call, Throwable t) {
+                System.out.println(t.getMessage());
+            }
+
+
+        });
     }
 
     private void setOrder(Order order){
@@ -139,6 +172,7 @@ public class BeerlabOrderService {
      * decreaseQuantity method is responsible for decreasing item quantity in cart
      * @param id
      * @param addBeerToOrderPayload
+     * @param baseUrl
      */
     private void decreaseQuantity(Long id,AddBeerToOrderPayload addBeerToOrderPayload, String baseUrl){
         final Retrofit askBeers = new Retrofit.Builder()
@@ -171,6 +205,7 @@ public class BeerlabOrderService {
      * deleteItemFromCart method is responsible for deleting item from cart
      * @param orderId
      * @param beerId
+     * @param baseUrl
      */
     private void deleteItemFromCart(Long orderId,Long beerId, String baseUrl){
         final Retrofit askBeers = new Retrofit.Builder()
@@ -201,6 +236,7 @@ public class BeerlabOrderService {
     /**
      * addBeerToCart function is responsible for increasing cart item quantity
      * @param addBeerToOrderPayload
+     * @param baseUrl
      */
     private void addBeerToCart(AddBeerToOrderPayload addBeerToOrderPayload, String baseUrl){
         final Retrofit askBeers = new Retrofit.Builder()
