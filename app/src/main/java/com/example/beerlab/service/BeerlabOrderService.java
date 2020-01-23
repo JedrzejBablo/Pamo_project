@@ -53,7 +53,7 @@ public class BeerlabOrderService {
      */
     public void setTotalAmountView(View view){
         totalAmountView = view.findViewById(R.id.textView_total);
-        totalAmountView.setText("Total: " + order.getTotalPrice());
+        totalAmountView.setText(activity.getApplicationContext().getString(R.string.total_amount) + order.getTotalPrice());
     }
 
     /**

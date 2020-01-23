@@ -1,6 +1,7 @@
 package com.example.beerlab.utils;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.SharedPreferences;
 
 /**
@@ -15,4 +16,5 @@ public class MyApplication extends Application {
         }
         return preferences;
     }
+
 }

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.beerlab.fragment.CartFragment;
 import com.example.beerlab.R;
 import com.example.beerlab.model.OrderItem;
+import com.example.beerlab.utils.MyApplication;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -26,6 +27,7 @@ public class OrderItemListAdapter extends RecyclerView.Adapter<OrderItemListAdap
     private Context orderItemContext;
     private List<OrderItem> orderItems;
     private OrderItemListAdapter.OnItemClickListener listener;
+    private MyApplication myApplication;
 
 
 
@@ -67,11 +69,11 @@ public class OrderItemListAdapter extends RecyclerView.Adapter<OrderItemListAdap
         String imageUrl = currentItem.getBeerDto().getImgUrl();
         String beerName = currentItem.getBeerDto().getBrand();
         int quantity = currentItem.getQuantity();
-        Double price = currentItem.getUnitPrice();
+        double price = currentItem.getUnitPrice();
 
         holder.orderItemBrandView.setText(beerName);
         holder.orderItemQuantityView.setText("Quantity: " + quantity);
-        holder.orderItemUnitPriceView.setText("Unit price: " + price);
+        holder.orderItemUnitPriceView.setText("Unit price"+ (int) price);
         Picasso.get().load(imageUrl).fit().centerInside().into(holder.orderItemImageView);
 
     }
