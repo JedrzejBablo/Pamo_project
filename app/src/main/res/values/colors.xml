@@ -18,6 +18,7 @@
     <color name="grey">#E5E5E5</color>
 
     <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
 
     <color name="colorPrimary2">#6E2C90</color>
     <color name="colorPrimaryDark2">#551B72</color>
