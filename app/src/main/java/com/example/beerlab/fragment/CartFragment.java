@@ -42,31 +42,7 @@ public class CartFragment extends Fragment {
         confirmOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final Retrofit askOrder = new Retrofit.Builder()
-                        .baseUrl(baseUrl)
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-
-                BeerlabOrderApi orderService = askOrder.create(BeerlabOrderApi.class);
-
-                Call<Order> callOrder = orderService.confirmOrder(beerlabAuthService.getToken());
-
-                callOrder.enqueue(new Callback<Order>() {
-                    @Override
-                    public void onResponse(Call<Order> call, Response<Order> response) {
-                        if (!response.isSuccessful()){
-                            System.out.println("Wooooow, something went wrong ! :( " + response.code());
-                            return;
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<Order> call, Throwable t) {
-                        System.out.println(t.getMessage());
-                    }
-
-
-                });
+                beerlabOrderService.confirmOrder(baseUrl);
             }
         });
 
