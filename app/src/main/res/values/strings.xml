@@ -63,4 +63,5 @@
     <string name="profile_placeholder_name">Magda</string>
     <string name="profile_placeholder_email">madzia@gmail.com</string>
     <string name="profile_balance">Balance: %s MUG</string>
+    <string name="logout">Logout</string>
 </resources>

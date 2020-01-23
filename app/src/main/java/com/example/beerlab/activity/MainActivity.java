@@ -19,6 +19,7 @@ import com.example.beerlab.fragment.CartFragment;
 import com.example.beerlab.fragment.CurrencyFragment;
 import com.example.beerlab.fragment.MenuFragment;
 import com.example.beerlab.fragment.ProfileFragment;
+import com.example.beerlab.service.BeerlabAuthService;
 import com.google.android.material.navigation.NavigationView;
 
 
@@ -99,6 +100,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_profile:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).commit();
+                break;
+            case R.id.nav_logout:
+                BeerlabAuthService beerlabAuthService = new BeerlabAuthService(getApplicationContext());
+                beerlabAuthService.flushToken();
+                setContentView(R.layout.login_activity);
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);

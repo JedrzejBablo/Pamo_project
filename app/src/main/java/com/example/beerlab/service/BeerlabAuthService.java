@@ -37,8 +37,16 @@ public class BeerlabAuthService {
         return sharedPreferences.getString("token", "");
     }
 
+    public void flushToken() {
+        MyApplication app = (MyApplication) context;
+
+        SharedPreferences.Editor editor = app.getSharedPrefs().edit();
+        editor.clear().apply();
+    }
+
     /**
      * verifyUser function is responsible for authenticate user with server
+     * @param baseUrl
      */
     public void verifyUser(String baseUrl) {
         final Retrofit askUser = new Retrofit.Builder()
