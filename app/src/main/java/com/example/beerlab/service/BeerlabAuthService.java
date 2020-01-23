@@ -40,9 +40,9 @@ public class BeerlabAuthService {
     /**
      * verifyUser function is responsible for authenticate user with server
      */
-    public void verifyUser() {
+    public void verifyUser(String baseUrl) {
         final Retrofit askUser = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:8081/")
+                .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

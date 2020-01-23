@@ -16,6 +16,7 @@ import com.example.beerlab.service.BeerlabBeerService;
 public class MenuFragment extends Fragment  {
 
     private RecyclerView mRecyclerView;
+    private String baseUrl = "http://10.0.2.2:8081/";
 
     @Nullable
     @Override
@@ -25,10 +26,10 @@ public class MenuFragment extends Fragment  {
 
 
         BeerlabAuthService beerlabAuthService = new BeerlabAuthService(getContext().getApplicationContext());
-        beerlabAuthService.verifyUser();
+        beerlabAuthService.verifyUser(baseUrl);
 
-        BeerlabBeerService beerlabBeerService = new BeerlabBeerService(view,this,getActivity(),getContext().getApplicationContext());
-        beerlabBeerService.showBeers();
+        BeerlabBeerService beerlabBeerService = new BeerlabBeerService(view,this,getActivity(),getContext().getApplicationContext(),baseUrl);
+        beerlabBeerService.showBeers(baseUrl);
 
 
         return view;

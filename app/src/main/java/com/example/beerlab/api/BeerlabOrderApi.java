@@ -11,6 +11,10 @@ import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
+/**
+ * In BeerlabAuthApi interface we use Retrofit to make requests to independent API
+ * This interface handle with order endpoint authentication requests
+ */
 public interface BeerlabOrderApi {
 
     @POST("/api/order")

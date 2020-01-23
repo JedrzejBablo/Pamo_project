@@ -8,8 +8,8 @@ import retrofit2.http.Body;
 import retrofit2.http.POST;
 
 /**
- * In BeerlabAuthApi interface we user Retrofit to make requests to independentAPI
- * This interface handle with user authentication requests
+ * In BeerlabAuthApi interface we use Retrofit to make requests to independent API
+ * This interface handle with auth endpoint authentication requests
  */
 public interface BeerlabAuthApi {
     @POST("/api/auth/signin")

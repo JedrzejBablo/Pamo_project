@@ -3,6 +3,9 @@ package com.example.beerlab.utils;
 import android.app.Application;
 import android.content.SharedPreferences;
 
+/**
+ * MyApplication class is responsible for receiving shared preferences
+ */
 public class MyApplication extends Application {
     public static SharedPreferences preferences;
 

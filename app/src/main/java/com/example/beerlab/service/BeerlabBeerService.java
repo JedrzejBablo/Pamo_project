@@ -33,22 +33,24 @@ public class BeerlabBeerService {
     private BeerlabAuthService beerlabAuthService;
     private MenuFragment menuFragment;
     private Activity activity;
+    private String baseUrl;
 
 
-    public BeerlabBeerService(View view, MenuFragment menuFragment, Activity activity, Context context) {
+    public BeerlabBeerService(View view, MenuFragment menuFragment, Activity activity, Context context, String baseUrl) {
         this.view = view;
         this.menuFragment = menuFragment;
         this.activity = activity;
         this.beerlabAuthService = new BeerlabAuthService(context);
+        this.baseUrl = baseUrl;
     }
 /**
  * showBeers function is responsible receive Beer list from API and then call showData function to show them in MenuFragment.
  * It use Retrofit library to receive json with list of beers and parse it into Beer objects list
  */
-    public void showBeers(){
+    public void showBeers(String baseUrl){
 
         final Retrofit askBeers = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:8081/")
+                .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -94,7 +96,7 @@ public class BeerlabBeerService {
             public void onItemClick(int position) {
 
                 AddBeerToOrderPayload addBeerToOrderPayload = new AddBeerToOrderPayload(beerListAdapter.getBeer(position).getId(),1);
-                addBeerToCart(addBeerToOrderPayload);
+                addBeerToCart(addBeerToOrderPayload,baseUrl);
 
             }
         });
@@ -110,9 +112,9 @@ public class BeerlabBeerService {
      * Retrofit library to post AddBeerOrderPayload to server.
      * @param addBeerToOrderPayload
      */
-    private void addBeerToCart(AddBeerToOrderPayload addBeerToOrderPayload){
+    private void addBeerToCart(AddBeerToOrderPayload addBeerToOrderPayload, String baseUrl){
         final Retrofit askBeers = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:8081/")
+                .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
