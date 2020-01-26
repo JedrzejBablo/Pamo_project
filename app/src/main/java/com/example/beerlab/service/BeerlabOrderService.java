@@ -117,6 +117,7 @@ public class BeerlabOrderService {
                     System.out.println("Wooooow, something went wrong ! :( " + response.code());
                     return;
                 }
+
             }
 
             @Override
@@ -137,7 +138,7 @@ public class BeerlabOrderService {
      * showData method is responsible for showing current user order in application. It also implements
      * OrderItemListAdapter.OnItemClickListener interface.
      */
-    private void showData(List<OrderItem> orders, View view){
+    private void showData(List<OrderItem> orders, final View view){
 
         recyclerView = view.findViewById(R.id.order_item_recycler_view);
         final OrderItemListAdapter orderItemListAdapter = new OrderItemListAdapter(cartFragment, orders);
@@ -174,7 +175,7 @@ public class BeerlabOrderService {
      * @param addBeerToOrderPayload
      * @param baseUrl
      */
-    private void decreaseQuantity(Long id,AddBeerToOrderPayload addBeerToOrderPayload, String baseUrl){
+    private void decreaseQuantity(Long id, AddBeerToOrderPayload addBeerToOrderPayload, String baseUrl){
         final Retrofit askBeers = new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -191,6 +192,7 @@ public class BeerlabOrderService {
                     System.out.println("Something went wrong in decreasing quantity " + response.code());
                     return;
                 }
+                Snackbar.make(view, String.format("Successfully decreased quantity"), Snackbar.LENGTH_SHORT).show();
             }
 
             @Override
@@ -224,6 +226,7 @@ public class BeerlabOrderService {
                     System.out.println("Something went wrong in deleting from cart " + response.code());
                     return;
                 }
+                Snackbar.make(view, String.format("Successfully deleted item"), Snackbar.LENGTH_SHORT).show();
             }
 
             @Override
@@ -255,7 +258,7 @@ public class BeerlabOrderService {
                     System.out.println("Something went wrong in adding to cart " + response.code());
                     return;
                 }
-
+                Snackbar.make(view, String.format("Successfully increased quantity"), Snackbar.LENGTH_SHORT).show();
             }
 
             @Override
