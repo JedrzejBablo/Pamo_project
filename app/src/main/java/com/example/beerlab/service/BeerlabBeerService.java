@@ -14,6 +14,7 @@ import com.example.beerlab.api.BeerlabOrderApi;
 import com.example.beerlab.model.Beer;
 import com.example.beerlab.payload.AddBeerToOrderPayload;
 import com.example.beerlab.fragment.MenuFragment;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
@@ -129,7 +130,7 @@ public class BeerlabBeerService {
                     System.out.println("Something went wrong in adding to cart " + response.code());
                     return;
                 }
-
+                Snackbar.make(view, String.format("Successfully added item"), Snackbar.LENGTH_SHORT).show();
             }
 
             @Override
