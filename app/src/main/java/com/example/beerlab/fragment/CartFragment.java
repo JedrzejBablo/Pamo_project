@@ -15,6 +15,7 @@ import com.example.beerlab.api.BeerlabOrderApi;
 import com.example.beerlab.model.Order;
 import com.example.beerlab.service.BeerlabAuthService;
 import com.example.beerlab.service.BeerlabOrderService;
+import com.google.android.material.snackbar.Snackbar;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,6 +44,7 @@ public class CartFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 beerlabOrderService.confirmOrder(baseUrl);
+                Snackbar.make(getView(), String.format("Success! Your order is on our way !"), Snackbar.LENGTH_SHORT).show();
             }
         });
 

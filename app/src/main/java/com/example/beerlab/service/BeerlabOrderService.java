@@ -15,6 +15,7 @@ import com.example.beerlab.model.Order;
 import com.example.beerlab.model.OrderItem;
 import com.example.beerlab.payload.AddBeerToOrderPayload;
 import com.example.beerlab.fragment.CartFragment;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
@@ -107,11 +108,11 @@ public class BeerlabOrderService {
 
         BeerlabOrderApi orderService = askOrder.create(BeerlabOrderApi.class);
 
-        Call<Order> callOrder = orderService.confirmOrder(beerlabAuthService.getToken());
+        Call<OrderItem> callOrder = orderService.confirmOrder(beerlabAuthService.getToken(), 1L);
 
-        callOrder.enqueue(new Callback<Order>() {
+        callOrder.enqueue(new Callback<OrderItem>() {
             @Override
-            public void onResponse(Call<Order> call, Response<Order> response) {
+            public void onResponse(Call<OrderItem> call, Response<OrderItem> response) {
                 if (!response.isSuccessful()){
                     System.out.println("Wooooow, something went wrong ! :( " + response.code());
                     return;
@@ -119,7 +120,7 @@ public class BeerlabOrderService {
             }
 
             @Override
-            public void onFailure(Call<Order> call, Throwable t) {
+            public void onFailure(Call<OrderItem> call, Throwable t) {
                 System.out.println(t.getMessage());
             }
 

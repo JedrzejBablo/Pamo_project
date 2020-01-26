@@ -1,6 +1,7 @@
 package com.example.beerlab.api;
 
 import com.example.beerlab.model.Order;
+import com.example.beerlab.model.OrderItem;
 import com.example.beerlab.payload.AddBeerToOrderPayload;
 
 import retrofit2.Call;
@@ -42,9 +43,10 @@ public interface BeerlabOrderApi {
             @Header("X-Auth-Token") String authorization
     );
 
-    @POST("/api/user/confirm")
-    Call<Order> confirmOrder(
-            @Header("X-Auth-Token") String authorization
+    @POST("/api/user/confirm/{method}")
+    Call<OrderItem> confirmOrder(
+            @Header("X-Auth-Token") String authorization,
+            @Path("method") Long method
     );
 
 
