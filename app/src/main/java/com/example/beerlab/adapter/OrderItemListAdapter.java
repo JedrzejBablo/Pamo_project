@@ -73,7 +73,7 @@ public class OrderItemListAdapter extends RecyclerView.Adapter<OrderItemListAdap
 
         holder.orderItemBrandView.setText(beerName);
         holder.orderItemQuantityView.setText("Quantity: " + quantity);
-        holder.orderItemUnitPriceView.setText("Unit price"+ (int) price);
+        holder.orderItemUnitPriceView.setText("Unit price: "+ (int) price);
         Picasso.get().load(imageUrl).fit().centerInside().into(holder.orderItemImageView);
 
     }
