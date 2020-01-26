@@ -165,7 +165,6 @@ public class BeerlabOrderService {
         recyclerView.setAdapter(orderItemListAdapter);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
-
     }
 
     /**

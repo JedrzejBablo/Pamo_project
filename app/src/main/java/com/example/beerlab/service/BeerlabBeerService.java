@@ -75,8 +75,6 @@ public class BeerlabBeerService {
             public void onFailure(Call<List<Beer>> call, Throwable t) {
                 System.out.println(t.getMessage());
             }
-
-
         });
     }
 
