@@ -15,6 +15,7 @@ import com.example.beerlab.model.Order;
 import com.example.beerlab.model.OrderItem;
 import com.example.beerlab.payload.AddBeerToOrderPayload;
 import com.example.beerlab.fragment.CartFragment;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
@@ -107,7 +108,7 @@ public class BeerlabOrderService {
 
         BeerlabOrderApi orderService = askOrder.create(BeerlabOrderApi.class);
 
-        Call<Order> callOrder = orderService.confirmOrder(beerlabAuthService.getToken());
+        Call<Order> callOrder = orderService.confirmOrder(beerlabAuthService.getToken(), 1L);
 
         callOrder.enqueue(new Callback<Order>() {
             @Override

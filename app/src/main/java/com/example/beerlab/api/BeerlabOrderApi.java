@@ -42,9 +42,10 @@ public interface BeerlabOrderApi {
             @Header("X-Auth-Token") String authorization
     );
 
-    @POST("/api/user/confirm")
+    @POST("/api/user/confirm/{method}")
     Call<Order> confirmOrder(
-            @Header("X-Auth-Token") String authorization
+            @Header("X-Auth-Token") String authorization,
+            @Path("method") Long method
     );
 
 
